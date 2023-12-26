@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false" type="text/javascript"></script>--> 
+    <script src="./node_modules/jquery/dist/jquery.js" type="text/javascript"></script>
+    <script src="./node_modules/jquery-base64-js/jquery.base64.js" type="text/javascript"></script>
+    <script src="./node_modules/zpipe/dist/zpipe.min.js" type="text/javascript"></script>
+    <script src="GSVPanoDepthFile.js" type="text/javascript"></script>
+    <canvas id="depthMapVisual" width=512 height=256></canvas>
+    <script>
+        var depthLoader = new GSVPANO.PanoDepthLoader();
+
+        depthLoader.onDepthLoad = function() {
+
+            // Returns depth map in the following format:
+            //
+            // this.depthMap.width: width of depth map in pixels
+            // this.depthMap.height: height of depth map in pixels
+            // this.depthMap.depthMap: Float32Array of size width*height that contains the depth at each pixel
+
+            
+
+            const canvasScale = 4;
+            
+            let canvas = document.getElementById("depthMapVisual");
+            let ctx = canvas.getContext("2d");
+            ctx.canvas.width = this.depthMap.width * canvasScale;
+            ctx.canvas.height = this.depthMap.height * canvasScale;
+
+
+            const scale = 4;
+            
+            for(let y = 0; y < this.depthMap.height; y++) {
+                for(let x = 0; x < this.depthMap.width; x++) {
+                    let brightness = this.depthMap.depthMap[y * this.depthMap.width + x] * scale;
+                    if(brightness < 1000){
+                        //console.log(brightness);
+                    }
+                    ctx.fillStyle = "rgb(" + brightness + ", " + brightness + ", " + brightness + ")";
+                    ctx.fillRect(x*canvasScale, y*canvasScale, canvasScale, canvasScale);
+                }
+            }
+            
+
+        };
+
+        //depthLoader.load(new google.maps.LatLng(42.345601, -71.098348));
+        //depthLoader.load("bOqjTdCUItCSNi1aNOwvnA");
+        depthLoader.load("n4K1vO7E4bfsbEiHKakEmg");
+    </script>
+</body>
+</html>

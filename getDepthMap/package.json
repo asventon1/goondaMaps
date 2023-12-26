@@ -1,0 +1,19 @@
+{
+  "name": "getdepthmap",
+  "version": "1.0.0",
+  "description": "gets gepth map",
+  "main": "GSVPanoDepth.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.31.0"
+  },
+  "dependencies": {
+    "jquery": "^3.6.3",
+    "jquery-base64-js": "^1.0.1",
+    "zpipe": "^1.0.2"
+  }
+}
